@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
 
-    // Use this for initialization
+    
     void Start ()
     {
-        
+        GameObject.FindGameObjectsWithTag("Door1");
+        GameObject.FindGameObjectsWithTag("Door2");
+        GameObject.FindGameObjectsWithTag("Door3");
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetKeyDown("a") || Input.GetKeyDown("A") || Input.GetKeyDown("ф") || Input.GetKeyDown("Ф"))
+        if (Input.GetKeyDown("1"))
         {
 
         }
-        else if (Input.GetKeyDown("s") || Input.GetKeyDown("S") || Input.GetKeyDown("ы") || Input.GetKeyDown("Ы"))
+        else if (Input.GetKeyDown("2"))
         {
 
         }
-        else if (Input.GetKeyDown("d") || Input.GetKeyDown("D") || Input.GetKeyDown("в") || Input.GetKeyDown("В"))
+        else if (Input.GetKeyDown("3"))
         {
 
         }
