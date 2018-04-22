@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public GameObject guyPrefab;
     private Guy guy = null;
 
     public bool IsOccupied { set; get; }
@@ -21,13 +20,11 @@ public class Door : MonoBehaviour
         
     }
 
-    public void SpawnGuy()
+    public void AssingGuy(Guy guy)
     {
         if (!IsOccupied)
         {
-            // TODO Create Guy With GuyGenerator
-            var guyGameObj = Instantiate(guyPrefab);
-            guy = guyGameObj.GetComponent<Guy>();
+            this.guy = guy;
             IsOccupied = true;
         }
     }

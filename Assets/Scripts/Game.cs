@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour {
+public class Game : Singleton<Game> {
 
     // Use this for initialization
     void Start ()
