@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    public float idleTime;
+    private float idleTimeLeft;
+    private bool isWaiting = false;
+
     private Guy guy = null;
 
-    private bool isOccupied = false; 
+    private bool isOccupied = false;
 
     public bool IsOccupied
     {
@@ -29,7 +33,16 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        
+        if (isWaiting)
+        {
+            idleTimeLeft -= Time.deltaTime;
+            if (idleTimeLeft < 0)
+            {
+                KillGuy();
+                var newGuy = Game.Instance.GenerateGuy();
+                AssingGuy(newGuy);
+            }
+        }
     }
 
     public void AssingGuy(Guy guy)
@@ -39,16 +52,19 @@ public class Door : MonoBehaviour
             guy.transform.position = transform.position;
             this.guy = guy;
             IsOccupied = true;
+            idleTimeLeft = idleTime;
+            isWaiting = true;
         }
     }
 
-    public void KillGuy()
+    public void KillGuy(bool isGuilty = false)
     {
         if (IsOccupied && guy)
         {
             guy.Die();
             guy = null;
             IsOccupied = false;
+            isWaiting = false;
         }
     }
 }

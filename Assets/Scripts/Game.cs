@@ -54,4 +54,10 @@ public class Game : Singleton<Game> {
             door3.KillGuy ();
         }
     }
+
+    public Guy GenerateGuy()
+    {
+        var guyObj = generator.Generate();
+        return guyObj.GetComponent<Guy>();
+    }
 }
