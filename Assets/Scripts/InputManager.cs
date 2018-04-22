@@ -7,25 +7,26 @@ public class InputManager : MonoBehaviour {
     
     void Start ()
     {
-        GameObject.FindGameObjectsWithTag("Door1");
-        GameObject.FindGameObjectsWithTag("Door2");
-        GameObject.FindGameObjectsWithTag("Door3");
+
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-
+            Debug.Log("Key 1 pressed");
+            Game.Instance.KillGuyInDoor(1);
         }
-        else if (Input.GetKeyDown("2"))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-
+            Debug.Log("Key 2 pressed");
+            Game.Instance.KillGuyInDoor(2);
         }
-        else if (Input.GetKeyDown("3"))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-
+            Debug.Log("Key 3 pressed");
+            Game.Instance.KillGuyInDoor(3);
         }
     }
 }

@@ -33,7 +33,7 @@ public class Door : MonoBehaviour
     {
         if (IsOccupied && guy)
         {
-            guy.KillSelf();
+            guy.Die();
             guy = null;
             IsOccupied = false;
         }

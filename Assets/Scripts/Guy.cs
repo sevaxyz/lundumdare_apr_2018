@@ -17,7 +17,7 @@ public class Guy : MonoBehaviour
         
     }
 
-    public void KillSelf()
+    public void Die()
     {
         Destroy(gameObject);
     }
