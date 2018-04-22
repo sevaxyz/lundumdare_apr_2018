@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Game : Singleton<Game> {
 
-    public GameObject GuyPrefab;
     List<Door> doorList = new List<Door>();
     private GuyGenerator generator;
+    Door door1 = null;
+    Door door2 = null;
+    Door door3 = null;
 
     // Use this for initialization
     void Start ()
     {
-        Screen.SetResolution(640, 480, false);
-
         generator = GetComponent<GuyGenerator>();
 
         var doorGameObjList = GameObject.FindGameObjectsWithTag("Door");
@@ -22,9 +22,13 @@ public class Game : Singleton<Game> {
             if (comp)
             {
                 var guyObj = generator.Generate();
-                guyObj.transform.position = comp.transform.position;
                 comp.AssingGuy(guyObj.GetComponent<Guy>());
-                doorList.Add(comp);
+                if (doorGameObj.name == "Door1")
+                    door1 = comp;
+                else if (doorGameObj.name == "Door2")
+                    door2 = comp;
+                else if (doorGameObj.name == "Door3")
+                    door3 = comp;
             }
         }
     }
@@ -37,7 +41,17 @@ public class Game : Singleton<Game> {
 
     public void KillGuyInDoor(int doorNumber)
     {
-        if (doorNumber <= doorList.Count)
-            doorList[doorNumber - 1].KillGuy();
+        if (doorNumber == 1)
+        {
+            door1.KillGuy ();
+        }
+        else if (doorNumber == 2)
+        {
+            door2.KillGuy ();
+        }
+        else if (doorNumber == 3)
+        {
+            door3.KillGuy ();
+        }
     }
 }

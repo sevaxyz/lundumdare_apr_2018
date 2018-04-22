@@ -6,12 +6,24 @@ public class Door : MonoBehaviour
 {
     private Guy guy = null;
 
-    public bool IsOccupied { set; get; }
+    private bool isOccupied = false; 
+
+    public bool IsOccupied
+    {
+        get
+        {
+            return isOccupied;
+        }
+        set
+        {
+            Debug.Log(value);
+            isOccupied = value;
+        }
+    }
 
     // Use this for initialization
     void Start ()
     {
-        IsOccupied = false;
     }
 
     // Update is called once per frame
@@ -24,6 +36,7 @@ public class Door : MonoBehaviour
     {
         if (!IsOccupied)
         {
+            guy.transform.position = transform.position;
             this.guy = guy;
             IsOccupied = true;
         }
