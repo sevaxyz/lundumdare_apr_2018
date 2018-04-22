@@ -6,30 +6,70 @@ class GuyGenerator : MonoBehaviour
 {
     public GameObject guyPrefab;
 
-    Guy Generate(RoundState state)
+    public GameObject Generate()
     {
-        Appearance appearance = new Appearance();
+
         Sprite[] sprites = Resources.LoadAll<Sprite>("spriteNames");
-        // TODO Generate Appearance
-        var guyGameobject = Instantiate(guyPrefab);
-        var spritesList = guyGameobject.GetComponentsInChildren<SpriteRenderer>();
+
+        Appearance appearance = new Appearance();
+
+        var guyObj = Instantiate(guyPrefab);
+        var spritesList = guyObj.GetComponentsInChildren<SpriteRenderer>();
         foreach (var spriteComp in spritesList)
         {
             if (spriteComp.gameObject.name == "Body")
             {
-                spriteComp.sprite = sprites[0];
-                // TODO Set sprite
+                switch (appearance.Skin)
+                {
+                    case SkinColor.red:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/male_1");
+                        break;
+                    case SkinColor.yellow:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/male_2");
+                        break;
+                    case SkinColor.purple:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/male_3");
+                        break;
+                }
             }
             else if (spriteComp.gameObject.name == "Cloth")
             {
-                // TODO Set sprite
+                switch (appearance.Dress)
+                {
+                    case DressColor.blue:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_toga_blue");
+                        break;
+                    case DressColor.green:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_toga_green");
+                        break;
+                    case DressColor.red:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_toga_red");
+                        break;
+                    case DressColor.yellow:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_toga_yellow");
+                        break;
+                    case DressColor.white:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_toga_white");
+                        break;
+                    case DressColor.black:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_toga_black");
+                        break;
+                }
             }
             else if (spriteComp.gameObject.name == "Trinket")
             {
-                // TODO Set sprite
+                switch (appearance.Brooch)
+                {
+                case BroochType.red:
+                    spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/trinkets/trinket1_red_right");
+                    break;
+                case BroochType.yellow:
+                    spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/trinkets/trinket2_yellow_right");
+                    break;
+                }
             }
         }
 
-        return new Guy();
+        return guyObj;
     }
 }

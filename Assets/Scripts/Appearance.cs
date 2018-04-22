@@ -22,9 +22,8 @@ public enum DressColor
 public enum BroochType
 {
     none = 0,
-    shield,
-    sun,
-    moon
+    red,
+    yellow
 }
 
 public enum BroochPlacement
@@ -33,10 +32,25 @@ public enum BroochPlacement
     down
 }
 
-public struct Appearance
+public class Appearance
 {
-    public SkinColor SkinColor { get; set; }
-    public DressColor DressColor { get; set; }
-    public BroochType BroochType { get; set; }
-    public BroochPlacement BroochPlacement { get; set; }
+    Dictionary<SkinColor, string> spriteFilenames;
+
+    public SkinColor Skin { get; set; }
+    public DressColor Dress { get; set; }
+    public BroochType Brooch { get; set; }
+    public BroochPlacement Placement { get; set; }
+
+    public Appearance()
+    {
+        Randomize();
+    }
+
+    public void Randomize()
+    {
+        Skin = (SkinColor)Random.Range(1.0f, 4.0f);
+        Dress = (DressColor)Random.Range(1.0f, 7.0f);
+        Brooch = (BroochType)Random.Range(1.0f, 3.0f);
+        Placement = (BroochPlacement)Random.Range(1.0f, 3.0f);
+    }
 }

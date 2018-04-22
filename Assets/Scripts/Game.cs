@@ -6,11 +6,14 @@ public class Game : Singleton<Game> {
 
     public GameObject GuyPrefab;
     List<Door> doorList = new List<Door>();
+    private GuyGenerator generator;
 
     // Use this for initialization
     void Start ()
     {
         Screen.SetResolution(640, 480, false);
+
+        generator = GetComponent<GuyGenerator>();
 
         var doorGameObjList = GameObject.FindGameObjectsWithTag("Door");
         foreach (var doorGameObj in doorGameObjList)
@@ -18,7 +21,7 @@ public class Game : Singleton<Game> {
             var comp = doorGameObj.GetComponent<Door>();
             if (comp)
             {
-                var guyObj = Instantiate(GuyPrefab);
+                var guyObj = generator.Generate();
                 guyObj.transform.position = comp.transform.position;
                 comp.AssingGuy(guyObj.GetComponent<Guy>());
                 doorList.Add(comp);
