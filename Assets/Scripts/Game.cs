@@ -41,17 +41,20 @@ public class Game : Singleton<Game> {
 
     public void KillGuyInDoor(int doorNumber, bool isGuilty)
     {
-        if (doorNumber == 1)
+        if (doorNumber == 1 && door1.IsOccupied)
         {
             door1.KillGuy(isGuilty);
+            door1.OnWaitingToCreateTimer();
         }
-        else if (doorNumber == 2)
+        else if (doorNumber == 2 && door2.IsOccupied)
         {
             door2.KillGuy(isGuilty);
+            door2.OnWaitingToCreateTimer();
         }
-        else if (doorNumber == 3)
+        else if (doorNumber == 3 && door3.IsOccupied)
         {
             door3.KillGuy(isGuilty);
+            door3.OnWaitingToCreateTimer();
         }
     }
 

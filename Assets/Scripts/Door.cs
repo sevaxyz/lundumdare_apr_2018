@@ -8,6 +8,9 @@ public class Door : MonoBehaviour
     private float idleTimeLeft;
     private bool isWaiting = false;
 
+    private float waitingToCreateGuyTimeLeft;
+    private bool isWaitingToCreate = false;
+
     private AudioSource audioSource = null;
 
     private Guy guy = null;
@@ -42,6 +45,14 @@ public class Door : MonoBehaviour
             if (idleTimeLeft < 0)
             {
                 DestroyGuy();
+                OnWaitingToCreateTimer();
+            }
+        }
+        else if (isWaitingToCreate)
+        {
+            waitingToCreateGuyTimeLeft -= Time.deltaTime;
+            if (waitingToCreateGuyTimeLeft < 0)
+            {
                 var newGuy = Game.Instance.GenerateGuy();
                 AssingGuy(newGuy);
             }
@@ -84,5 +95,11 @@ public class Door : MonoBehaviour
         guy = null;
         IsOccupied = false;
         isWaiting = false;
+    }
+
+    public void OnWaitingToCreateTimer()
+    {
+        isWaitingToCreate = true;
+        waitingToCreateGuyTimeLeft = 1;
     }
 }
