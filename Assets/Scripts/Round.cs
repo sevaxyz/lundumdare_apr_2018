@@ -27,7 +27,7 @@ public class Round
     public void Flush()
     {
         Score = 0;
-        Time = 5;
+        Time = 60;
         Finished = false;
     }
 
