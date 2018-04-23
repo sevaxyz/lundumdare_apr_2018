@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Game : Singleton<Game> {
@@ -22,7 +23,8 @@ public class Game : Singleton<Game> {
     // Use this for initialization
     void Awake()
     {
-        round = new Round();
+        round = Round.Instance();
+        round.Flush();
         generator = GetComponent<GuyGenerator>();
 
         var doorGameObjList = GameObject.FindGameObjectsWithTag("Door");
@@ -72,8 +74,14 @@ public class Game : Singleton<Game> {
     void Update ()
     {
         if (!round.Finished)
+        {
             round.Tick(Time.deltaTime);
-        PrintTime();
+            PrintTime();
+        }
+        else
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     public void KillGuyInDoor(int doorNumber, bool isSentenced)

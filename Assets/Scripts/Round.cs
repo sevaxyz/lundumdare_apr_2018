@@ -4,8 +4,33 @@ using UnityEngine;
 
 public class Round
 {
+    static Round _instance = null;
+
     public int Score { get; set; }
-    
+    public float Time { get; set; } // in seconds
+    public bool Finished { get; set; }
+
+    private Round()
+    {
+        Flush();
+    }
+
+    public static Round Instance()
+    {
+        if (_instance == null)
+        {
+            _instance = new Round();
+        }
+        return _instance;
+    }
+
+    public void Flush()
+    {
+        Score = 0;
+        Time = 5;
+        Finished = false;
+    }
+
     public void CorrectKill()
     {
         if (!Finished)
@@ -30,9 +55,6 @@ public class Round
         }
     }
 
-    public float Time { get; set; } // in seconds
-    public bool Finished { get; set; }
-
     public void Tick(float delta)
     {
         Time -= delta;
@@ -41,18 +63,6 @@ public class Round
             Time = 0;
             Finished = true;
         }
-    }
-
-    public void Flush()
-    {
-        Score = 0;
-        Time = 60;
-        Finished = false;
-    }
-
-    public Round()
-    {
-        Flush();
     }
 
 }
