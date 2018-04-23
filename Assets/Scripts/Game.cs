@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : Singleton<Game> {
 
@@ -11,8 +12,11 @@ public class Game : Singleton<Game> {
 
     public Round round;
 
+    private Text scoreText;
+    private Text timerText;
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         round = new Round();
         generator = GetComponent<GuyGenerator>();
@@ -33,6 +37,20 @@ public class Game : Singleton<Game> {
                     door3 = comp;
             }
         }
+
+        var scoreGameObjList = GameObject.FindGameObjectsWithTag("ScoreText");
+        foreach (var scoreGameObj in scoreGameObjList)
+        {
+            scoreText = scoreGameObj.GetComponent<Text>();
+        }
+
+        var timerGameObjList = GameObject.FindGameObjectsWithTag("TimerText");
+        foreach (var timerGameObj in timerGameObjList)
+        {
+            timerText = timerGameObj.GetComponent<Text>();
+        }
+
+        PrintScore();
     }
 
     // Update is called once per frame
@@ -67,7 +85,7 @@ public class Game : Singleton<Game> {
                 round.CorrectFree();
             else
                 round.IncorrectKill();
-            Debug.Log(round.Score);
+            PrintScore();
         }
     }
 
@@ -75,5 +93,11 @@ public class Game : Singleton<Game> {
     {
         var guyObj = generator.Generate();
         return guyObj.GetComponent<Guy>();
+    }
+
+    private void PrintScore()
+    {
+        scoreText.text = string.Format("{0,10:D6}", round.Score);
+        Debug.Log("Score: " + round.Score);
     }
 }
