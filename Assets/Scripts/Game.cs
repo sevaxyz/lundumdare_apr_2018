@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,12 @@ public class Game : Singleton<Game> {
 
     private Text scoreText;
     private Text timerText;
+    private Text dudeColorText;
+    private Text topColorText;
+
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         round = new Round();
         generator = GetComponent<GuyGenerator>();
@@ -43,6 +47,7 @@ public class Game : Singleton<Game> {
         {
             scoreText = scoreGameObj.GetComponent<Text>();
         }
+        PrintScore();
 
         var timerGameObjList = GameObject.FindGameObjectsWithTag("TimerText");
         foreach (var timerGameObj in timerGameObjList)
@@ -50,7 +55,17 @@ public class Game : Singleton<Game> {
             timerText = timerGameObj.GetComponent<Text>();
         }
 
-        PrintScore();
+        var dudeColorGameObjList = GameObject.FindGameObjectsWithTag("DudeColorText");
+        foreach (var dudeColorGameObj in dudeColorGameObjList)
+        {
+            dudeColorText = dudeColorGameObj.GetComponent<Text>();
+        }
+
+        var topColorGameObjList = GameObject.FindGameObjectsWithTag("TopColorText");
+        foreach (var topColorGameObj in topColorGameObjList)
+        {
+            topColorText = topColorGameObj.GetComponent<Text>();
+        }
     }
 
     // Update is called once per frame
@@ -115,12 +130,17 @@ public class Game : Singleton<Game> {
     {
         timerText.text = string.Format("{0,2:D2}", (int) round.Time);
         // Debug.Log("Time: " + round.Time);
-
     }
 
     private void PrintScore()
     {
         scoreText.text = string.Format("{0,10:D6}", round.Score);
         // Debug.Log("Score: " + round.Score);
+    }
+
+    public void PrintGuiltyColors(string prohibitedSkin, string prohibitedDress)
+    {
+        dudeColorText.text = prohibitedSkin;
+        topColorText.text = prohibitedDress;
     }
 }

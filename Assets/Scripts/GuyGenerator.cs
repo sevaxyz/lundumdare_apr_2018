@@ -9,7 +9,7 @@ class GuyGenerator : MonoBehaviour
     public SkinColor prohibitedSkin { get; set; }
     public DressColor prohibitedDress { get; set; }
 
-    void Start()
+    void Awake()
     {
         RandomizeProhibited();
     }
@@ -20,6 +20,8 @@ class GuyGenerator : MonoBehaviour
         prohibitedDress = (DressColor)Random.Range(1.0f, 7.0f);
         Debug.Log("Incorrect skin: " + prohibitedSkin);
         Debug.Log("Incorrect dress: " + prohibitedDress);
+
+        Game.Instance.PrintGuiltyColors(prohibitedSkin.ToString(), prohibitedDress.ToString());
     }
 
     public GameObject Generate()
