@@ -18,8 +18,8 @@ class GuyGenerator : MonoBehaviour
     {
         prohibitedSkin = (SkinColor)Random.Range(1.0f, 4.0f);
         prohibitedDress = (DressColor)Random.Range(1.0f, 7.0f);
-        Debug.Log(prohibitedSkin);
-        Debug.Log(prohibitedDress);
+        Debug.Log("Incorrect skin: " + prohibitedSkin);
+        Debug.Log("Incorrect dress: " + prohibitedDress);
     }
 
     public GameObject Generate()
@@ -85,6 +85,7 @@ class GuyGenerator : MonoBehaviour
         }
         var guy = guyObj.GetComponent<Guy>();
         guy.isGuilty = (appearance.Skin == prohibitedSkin) || (appearance.Dress == prohibitedDress);
+        Debug.Log("Generated a guilty guy:" + guy.isGuilty);
 
         return guyObj;
     }

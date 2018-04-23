@@ -5,33 +5,51 @@ using UnityEngine;
 public class Round
 {
     public int Score { get; set; }
-
-    public Round()
+    
+    public void CorrectKill()
     {
-        Score = 0;
+        if (!Finished)
+            Score += 10;
+    }
+
+    public void CorrectFree()
+    {
+        if (!Finished)
+            Score += 2;
+    }
+
+    public void IncorrectKill()
+    {
+        if (!Finished)
+        {
+            Debug.Log("In IncorrectKill: inside!");
+            if (Score >= 10)
+                Score -= 10;
+            else
+                Score = 0;
+        }
+    }
+
+    public float Time { get; set; } // in seconds
+    public bool Finished { get; set; }
+
+    public void Tick(float delta)
+    {
+        Time -= delta;
+        if (Time <= 0)
+            Finished = true;
     }
 
     public void Flush()
     {
         Score = 0;
+        Time = 60;
+        Finished = false;
     }
 
-    public void CorrectKill()
+    public Round()
     {
-        Score += 10;
-    }
-
-    public void CorrectFree()
-    {
-        Score += 2;
-    }
-
-    public void IncorrectKill()
-    {
-        if (Score >= 10)
-            Score -= 10;
-        else
-            Score = 0;
+        Flush();
     }
 
 }

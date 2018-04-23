@@ -56,35 +56,50 @@ public class Game : Singleton<Game> {
     // Update is called once per frame
     void Update ()
     {
-
+        if (!round.Finished)
+            round.Tick(Time.deltaTime);
     }
 
-    public void KillGuyInDoor(int doorNumber, bool isGuilty)
+    public void KillGuyInDoor(int doorNumber, bool isSentenced)
     {
-        Guy guy = null;
+        bool triggerred = false;
+        bool isGuilty = false;
         if (doorNumber == 1 && door1.IsOccupied)
         {
-            door1.KillGuy(isGuilty);
-            guy = door1.GetCurrentGuy();
+            isGuilty = door1.GetCurrentGuy().isGuilty;
+            triggerred = true;
+            door1.KillGuy(isSentenced);
         }
         else if (doorNumber == 2 && door2.IsOccupied)
         {
-            door2.KillGuy(isGuilty);
-            guy = door2.GetCurrentGuy();
+            isGuilty = door2.GetCurrentGuy().isGuilty;
+            triggerred = true;
+            door2.KillGuy(isSentenced);
         }
         else if (doorNumber == 3 && door3.IsOccupied)
         {
-            door3.KillGuy(isGuilty);
-            guy = door3.GetCurrentGuy();
+            isGuilty = door3.GetCurrentGuy().isGuilty;
+            triggerred = true;
+            door3.KillGuy(isSentenced);
         }
-        if (guy)
+
+        if (triggerred)
         {
-            if (guy.isGuilty && isGuilty)
+            if (isGuilty && isSentenced)
+            {
+                Debug.Log("Correct!");
                 round.CorrectKill();
-            if (!guy.isGuilty && !isGuilty)
+            }
+            else if ((!isGuilty) && (!isSentenced))
+            {
+                Debug.Log("Correct!");
                 round.CorrectFree();
+            }
             else
+            {
+                Debug.Log("Incorrect =(");
                 round.IncorrectKill();
+            }
             PrintScore();
         }
     }
