@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Guy : MonoBehaviour
 {
+    public bool isGuilty { get; set; }
 
     // Use this for initialization
     void Start ()
