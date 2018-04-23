@@ -18,6 +18,8 @@ class GuyGenerator : MonoBehaviour
     {
         prohibitedSkin = (SkinColor)Random.Range(1.0f, 4.0f);
         prohibitedDress = (DressColor)Random.Range(1.0f, 7.0f);
+        Debug.Log(prohibitedSkin);
+        Debug.Log(prohibitedDress);
     }
 
     public GameObject Generate()

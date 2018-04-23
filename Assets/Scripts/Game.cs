@@ -9,9 +9,12 @@ public class Game : Singleton<Game> {
     Door door2 = null;
     Door door3 = null;
 
+    public Round round;
+
     // Use this for initialization
     void Start ()
     {
+        round = new Round();
         generator = GetComponent<GuyGenerator>();
 
         var doorGameObjList = GameObject.FindGameObjectsWithTag("Door");
@@ -40,17 +43,31 @@ public class Game : Singleton<Game> {
 
     public void KillGuyInDoor(int doorNumber, bool isGuilty)
     {
+        Guy guy = null;
         if (doorNumber == 1 && door1.IsOccupied)
         {
             door1.KillGuy(isGuilty);
+            guy = door1.GetCurrentGuy();
         }
         else if (doorNumber == 2 && door2.IsOccupied)
         {
             door2.KillGuy(isGuilty);
+            guy = door2.GetCurrentGuy();
         }
         else if (doorNumber == 3 && door3.IsOccupied)
         {
             door3.KillGuy(isGuilty);
+            guy = door3.GetCurrentGuy();
+        }
+        if (guy)
+        {
+            if (guy.isGuilty && isGuilty)
+                round.CorrectKill();
+            if (!guy.isGuilty && !isGuilty)
+                round.CorrectFree();
+            else
+                round.IncorrectKill();
+            Debug.Log(round.Score);
         }
     }
 
