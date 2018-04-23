@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    public float idleTimeTotal;
     private float idleTimeLeft;
     private bool isIdle = false;
 
+    public float waitingToCreateGuyTotal;
     private float waitingToCreateGuyTimeLeft;
     private bool isWaitingToCreate = false;
 
@@ -114,13 +116,13 @@ public class Door : MonoBehaviour
 
     public void StartWaitingToCreateTimer()
     {
-        waitingToCreateGuyTimeLeft = 1;
+        waitingToCreateGuyTimeLeft = waitingToCreateGuyTotal;
         isWaitingToCreate = true;
     }
 
     public void StartIdleTimer()
     {
-        idleTimeLeft = 3;
+        idleTimeLeft = idleTimeTotal;
         isIdle = true;
     }
 
