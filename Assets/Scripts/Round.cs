@@ -37,7 +37,10 @@ public class Round
     {
         Time -= delta;
         if (Time <= 0)
+        {
+            Time = 0;
             Finished = true;
+        }
     }
 
     public void Flush()

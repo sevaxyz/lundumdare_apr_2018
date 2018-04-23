@@ -58,6 +58,7 @@ public class Game : Singleton<Game> {
     {
         if (!round.Finished)
             round.Tick(Time.deltaTime);
+        PrintTime();
     }
 
     public void KillGuyInDoor(int doorNumber, bool isSentenced)
@@ -110,9 +111,16 @@ public class Game : Singleton<Game> {
         return guyObj.GetComponent<Guy>();
     }
 
+    private void PrintTime()
+    {
+        timerText.text = string.Format("{0,2:D2}", (int) round.Time);
+        // Debug.Log("Time: " + round.Time);
+
+    }
+
     private void PrintScore()
     {
         scoreText.text = string.Format("{0,10:D6}", round.Score);
-        Debug.Log("Score: " + round.Score);
+        // Debug.Log("Score: " + round.Score);
     }
 }
