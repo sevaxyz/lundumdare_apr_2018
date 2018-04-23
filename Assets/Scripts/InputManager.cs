@@ -43,5 +43,7 @@ public class InputManager : MonoBehaviour {
             Debug.Log("Key 3 pressed");
             Game.Instance.KillGuyInDoor(3, false);
         }
+        else if (Input.GetKey("escape"))
+            Application.Quit();
     }
 }
