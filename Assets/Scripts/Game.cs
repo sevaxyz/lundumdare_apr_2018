@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Game : Singleton<Game> {
 
-    List<Door> doorList = new List<Door>();
     private GuyGenerator generator;
     Door door1 = null;
     Door door2 = null;
@@ -44,17 +43,14 @@ public class Game : Singleton<Game> {
         if (doorNumber == 1 && door1.IsOccupied)
         {
             door1.KillGuy(isGuilty);
-            door1.OnWaitingToCreateTimer();
         }
         else if (doorNumber == 2 && door2.IsOccupied)
         {
             door2.KillGuy(isGuilty);
-            door2.OnWaitingToCreateTimer();
         }
         else if (doorNumber == 3 && door3.IsOccupied)
         {
             door3.KillGuy(isGuilty);
-            door3.OnWaitingToCreateTimer();
         }
     }
 

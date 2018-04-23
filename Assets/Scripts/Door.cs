@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public float idleTime;
     private float idleTimeLeft;
-    private bool isWaiting = false;
+    private bool isIdle = false;
 
     private float waitingToCreateGuyTimeLeft;
     private bool isWaitingToCreate = false;
+
+    private bool isKillingInProgress = false;
 
     private AudioSource audioSource = null;
 
     private Guy guy = null;
 
     private bool isOccupied = false;
+
+    Animator animator;
 
     public bool IsOccupied
     {
@@ -34,18 +37,20 @@ public class Door : MonoBehaviour
     void Start ()
     {
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if (isWaiting)
+        if (isIdle)
         {
             idleTimeLeft -= Time.deltaTime;
             if (idleTimeLeft < 0)
             {
+                isIdle = false;
                 DestroyGuy();
-                OnWaitingToCreateTimer();
+                StartWaitingToCreateTimer();
             }
         }
         else if (isWaitingToCreate)
@@ -53,9 +58,15 @@ public class Door : MonoBehaviour
             waitingToCreateGuyTimeLeft -= Time.deltaTime;
             if (waitingToCreateGuyTimeLeft < 0)
             {
-                var newGuy = Game.Instance.GenerateGuy();
-                AssingGuy(newGuy);
+                isWaitingToCreate = false;
+                CreateNewGuy();
             }
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("DoorClosed"))
+        {
+            DestroyGuy();
+            OpenTheDoorAnimation();
+            StartWaitingToCreateTimer();
         }
     }
 
@@ -66,17 +77,19 @@ public class Door : MonoBehaviour
             guy.transform.position = transform.position;
             this.guy = guy;
             IsOccupied = true;
-            idleTimeLeft = idleTime;
-            isWaiting = true;
+            StartIdleTimer();
         }
     }
 
-    public void KillGuy(bool isGuilty = false)
+    public void KillGuy(bool isGuilty)
     {
-        if (IsOccupied && guy)
+        if (IsOccupied && guy && !isKillingInProgress)
         {
             if (isGuilty)
             {
+                isIdle = false;
+                isKillingInProgress = true;
+                CloseTheDoorAnimation();
                 audioSource.clip = Resources.Load<AudioClip>("Sounds/jail_cell_door");
                 audioSource.Play();
             }
@@ -84,8 +97,9 @@ public class Door : MonoBehaviour
             {
                 audioSource.clip = Resources.Load<AudioClip>("Sounds/choir");
                 audioSource.Play();
+                DestroyGuy();
+                StartWaitingToCreateTimer();
             }
-            DestroyGuy ();
         }
     }
 
@@ -94,12 +108,42 @@ public class Door : MonoBehaviour
         guy.Die();
         guy = null;
         IsOccupied = false;
-        isWaiting = false;
+        isIdle = false;
+        isKillingInProgress = false;
     }
 
-    public void OnWaitingToCreateTimer()
+    public void StartWaitingToCreateTimer()
     {
-        isWaitingToCreate = true;
         waitingToCreateGuyTimeLeft = 1;
+        isWaitingToCreate = true;
+    }
+
+    public void StartIdleTimer()
+    {
+        idleTimeLeft = 3;
+        isIdle = true;
+    }
+
+    private void CloseTheDoorAnimation()
+    {
+        animator.SetBool("CloseDoor", true);
+        animator.SetBool("OpenDoor", false);
+    }
+
+    private void OpenTheDoorAnimation()
+    {
+        animator.SetBool("CloseDoor", false);
+        animator.SetBool("OpenDoor", true);
+    }
+
+    private void CreateNewGuy()
+    {
+        var newGuy = Game.Instance.GenerateGuy();
+        AssingGuy(newGuy);
+    }
+
+    public Guy GetCurrentGuy()
+    {
+        return guy;
     }
 }

@@ -9,8 +9,6 @@ class GuyGenerator : MonoBehaviour
     public GameObject Generate()
     {
 
-        Sprite[] sprites = Resources.LoadAll<Sprite>("spriteNames");
-
         Appearance appearance = new Appearance();
 
         var guyObj = Instantiate(guyPrefab);
