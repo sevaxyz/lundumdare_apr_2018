@@ -8,6 +8,8 @@ public class Door : MonoBehaviour
     private float idleTimeLeft;
     private bool isWaiting = false;
 
+    private AudioSource audioSource = null;
+
     private Guy guy = null;
 
     private bool isOccupied = false;
@@ -28,6 +30,7 @@ public class Door : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,7 +41,7 @@ public class Door : MonoBehaviour
             idleTimeLeft -= Time.deltaTime;
             if (idleTimeLeft < 0)
             {
-                KillGuy();
+                DestroyGuy();
                 var newGuy = Game.Instance.GenerateGuy();
                 AssingGuy(newGuy);
             }
@@ -61,10 +64,25 @@ public class Door : MonoBehaviour
     {
         if (IsOccupied && guy)
         {
-            guy.Die();
-            guy = null;
-            IsOccupied = false;
-            isWaiting = false;
+            if (isGuilty)
+            {
+                audioSource.clip = Resources.Load<AudioClip>("Sounds/jail_cell_door");
+                audioSource.Play();
+            }
+            else
+            {
+                audioSource.clip = Resources.Load<AudioClip>("Sounds/choir");
+                audioSource.Play();
+            }
+            DestroyGuy ();
         }
+    }
+
+    private void DestroyGuy()
+    {
+        guy.Die();
+        guy = null;
+        IsOccupied = false;
+        isWaiting = false;
     }
 }

@@ -39,19 +39,19 @@ public class Game : Singleton<Game> {
 
     }
 
-    public void KillGuyInDoor(int doorNumber)
+    public void KillGuyInDoor(int doorNumber, bool isGuilty)
     {
         if (doorNumber == 1)
         {
-            door1.KillGuy ();
+            door1.KillGuy(isGuilty);
         }
         else if (doorNumber == 2)
         {
-            door2.KillGuy ();
+            door2.KillGuy(isGuilty);
         }
         else if (doorNumber == 3)
         {
-            door3.KillGuy ();
+            door3.KillGuy(isGuilty);
         }
     }
 
