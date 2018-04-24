@@ -26,6 +26,16 @@ public enum BroochType
     yellow
 }
 
+public enum PantsColor
+{
+    black = 1,
+    blue,
+    green,
+    red,
+    white,
+    yellow
+}
+
 public enum BroochPlacement
 {
     up = 1,
@@ -40,6 +50,7 @@ public class Appearance
     public DressColor Dress { get; set; }
     public BroochType Brooch { get; set; }
     public BroochPlacement Placement { get; set; }
+    public PantsColor Pants { get; set; }
 
     public Appearance()
     {
@@ -52,5 +63,6 @@ public class Appearance
         Dress = (DressColor)Random.Range(1.0f, 7.0f);
         Brooch = (BroochType)Random.Range(1.0f, 3.0f);
         Placement = (BroochPlacement)Random.Range(1.0f, 3.0f);
+        Pants = (PantsColor)Random.Range(1.0f, 7.0f);
     }
 }

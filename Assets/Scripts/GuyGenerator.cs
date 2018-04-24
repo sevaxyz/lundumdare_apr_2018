@@ -76,12 +76,36 @@ class GuyGenerator : MonoBehaviour
             {
                 switch (appearance.Brooch)
                 {
-                case BroochType.red:
-                    spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/trinkets/trinket1_red_right");
-                    break;
-                case BroochType.yellow:
-                    spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/trinkets/trinket2_yellow_right");
-                    break;
+                    case BroochType.red:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/trinkets/trinket1_red_right");
+                        break;
+                    case BroochType.yellow:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/trinkets/trinket2_yellow_right");
+                        break;
+                }
+            }
+            else if (spriteComp.gameObject.name == "Pants")
+            {
+                switch (appearance.Pants)
+                {
+                    case PantsColor.black:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_pants_black");
+                        break;
+                    case PantsColor.blue:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_pants_blue");
+                        break;
+                    case PantsColor.green:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_pants_green");
+                        break;
+                    case PantsColor.red:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_pants_red");
+                        break;
+                    case PantsColor.white:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_pants_white");
+                        break;
+                    case PantsColor.yellow:
+                        spriteComp.sprite = Resources.Load<Sprite>("Sprites/clothes/clothes_male_pants_yellow");
+                        break;
                 }
             }
         }
