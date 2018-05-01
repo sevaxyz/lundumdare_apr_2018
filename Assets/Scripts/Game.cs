@@ -91,20 +91,17 @@ public class Game : Singleton<Game> {
         if (doorNumber == 1 && door1.IsOccupied)
         {
             isGuilty = door1.GetCurrentGuy().isGuilty;
-            triggerred = true;
-            door1.KillGuy(isSentenced);
+            triggerred = door1.KillGuy(isSentenced);
         }
         else if (doorNumber == 2 && door2.IsOccupied)
         {
             isGuilty = door2.GetCurrentGuy().isGuilty;
-            triggerred = true;
-            door2.KillGuy(isSentenced);
+            triggerred = door2.KillGuy(isSentenced);
         }
         else if (doorNumber == 3 && door3.IsOccupied)
         {
             isGuilty = door3.GetCurrentGuy().isGuilty;
-            triggerred = true;
-            door3.KillGuy(isSentenced);
+            triggerred = door3.KillGuy(isSentenced);
         }
 
         if (triggerred)

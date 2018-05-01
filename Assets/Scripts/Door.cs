@@ -83,10 +83,12 @@ public class Door : MonoBehaviour
         }
     }
 
-    public void KillGuy(bool isGuilty)
+    public bool KillGuy(bool isGuilty)
     {
+        bool res = false;
         if (IsOccupied && guy && !isKillingInProgress)
         {
+            res = true;
             if (isGuilty)
             {
                 isIdle = false;
@@ -103,6 +105,7 @@ public class Door : MonoBehaviour
                 StartWaitingToCreateTimer();
             }
         }
+        return res;
     }
 
     private void DestroyGuy()
